@@ -17,10 +17,8 @@ function Header() {
   return <header className="header"><BrandMark /><h1>NELSON SOUZA</h1><p className="dev">DEV</p><div className="divider" aria-hidden="true"><span /><i /><span /></div><p className="tagline">Desenvolvendo soluções inteligentes<br />para transformar ideias em realidade.</p></header>;
 }
 
-function LinkCard({ title, href, icon: Icon, disabled, external }: (typeof links)[number]) {
-  const content = <><span className="icon-wrap"><Icon aria-hidden="true" /></span><span className="card-title">{title}</span>{disabled ? <span className="soon">EM BREVE</span> : <ArrowRight className="arrow" aria-hidden="true" />}</>;
-  if (disabled) return <div className="link-card is-disabled" aria-disabled="true">{content}</div>;
-  return <a className="link-card" href={href} target={external ? "_blank" : undefined} rel={external ? "noreferrer" : undefined}>{content}</a>;
+function LinkCard({ title, href, icon: Icon, external }: (typeof links)[number]) {
+  return <a className="link-card" href={href} target={external ? "_blank" : undefined} rel={external ? "noreferrer" : undefined}><span className="icon-wrap"><Icon aria-hidden="true" /></span><span className="card-title">{title}</span><ArrowRight className="arrow" aria-hidden="true" /></a>;
 }
 
 function SocialFooter() { return <footer><div className="connect"><span />CONECTE-SE COMIGO<span /></div><a className="instagram" href={SOCIAL_LINKS.instagram} target="_blank" rel="noreferrer" aria-label="Instagram @nelsonn.dev"><FaInstagram aria-hidden="true" /></a><p>@nelsonn.dev</p></footer>; }
