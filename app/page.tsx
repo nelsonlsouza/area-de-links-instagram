@@ -2,10 +2,10 @@ import Image from "next/image";
 import { ArrowRight, BriefcaseBusiness } from "lucide-react";
 import { FaGithub, FaInstagram, FaLinkedinIn, FaWhatsapp } from "react-icons/fa6";
 
-const SOCIAL_LINKS = { portfolio: "/portfolio", whatsapp: "https://wa.me/5592984588149", instagram: "https://instagram.com/nelsonn.dev" } as const;
+const SOCIAL_LINKS = { portfolio: "https://nelson-souza-portfolio.vercel.app", whatsapp: "https://wa.me/5592984588149", instagram: "https://instagram.com/nelsonn.dev" } as const;
 
 const links = [
-  { title: "Portfólio", icon: BriefcaseBusiness, href: SOCIAL_LINKS.portfolio },
+  { title: "Portfólio", icon: BriefcaseBusiness, href: SOCIAL_LINKS.portfolio, external: true },
   { title: "WhatsApp", icon: FaWhatsapp, href: SOCIAL_LINKS.whatsapp, external: true },
   { title: "GitHub", icon: FaGithub, disabled: true },
   { title: "LinkedIn", icon: FaLinkedinIn, disabled: true },
