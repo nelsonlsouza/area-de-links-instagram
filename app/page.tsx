@@ -2,13 +2,13 @@ import Image from "next/image";
 import { ArrowRight, BriefcaseBusiness } from "lucide-react";
 import { FaGithub, FaInstagram, FaLinkedinIn, FaWhatsapp } from "react-icons/fa6";
 
-const SOCIAL_LINKS = { portfolio: "https://nelson-souza-portfolio.vercel.app", whatsapp: "https://wa.me/5592984588149", instagram: "https://instagram.com/nelsonn.dev" } as const;
+const SOCIAL_LINKS = { portfolio: "https://nelson-souza-portfolio.vercel.app", whatsapp: "https://wa.me/5592984588149", instagram: "https://instagram.com/nelsonn.dev", github: "https://github.com/nelsonlsouza", linkedin: "https://linkedin.com/in/nelsonlsouza/" } as const;
 
 const links = [
   { title: "Portfólio", icon: BriefcaseBusiness, href: SOCIAL_LINKS.portfolio, external: true },
   { title: "WhatsApp", icon: FaWhatsapp, href: SOCIAL_LINKS.whatsapp, external: true },
-  { title: "GitHub", icon: FaGithub, disabled: true },
-  { title: "LinkedIn", icon: FaLinkedinIn, disabled: true },
+  { title: "GitHub", icon: FaGithub, href: SOCIAL_LINKS.github, external: true },
+  { title: "LinkedIn", icon: FaLinkedinIn, href: SOCIAL_LINKS.linkedin, external: true },
 ];
 
 function BrandMark() { return <Image className="brand-mark" src="/logo-nelson.png" width={1254} height={1254} alt="Logo Nelson Souza Dev" priority />; }
