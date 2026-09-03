@@ -38,10 +38,8 @@ function ProfileHeader() {
       <a className="contact-shortcut" href="#contato">Contato</a>
     </nav>
     <div className="profile-picture" aria-hidden="true"><Image src="/logo-nelson.png" width={1254} height={1254} alt="" priority /></div>
-    <p className="eyebrow">DESENVOLVEDOR DE SOFTWARE</p>
     <h1>Nelson Souza</h1>
     <p className="username">@nelsonn.dev</p>
-    <p className="intro">Transformo ideias em soluções digitais simples, úteis e bem construídas.</p>
     <div className="social-list" aria-label="Redes sociais">
       <a href={CONTACT_LINKS.instagram} target="_blank" rel="noreferrer" aria-label="Instagram"><FaInstagram aria-hidden="true" /></a>
       <a href={CONTACT_LINKS.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn"><FaLinkedinIn aria-hidden="true" /></a>
@@ -49,11 +47,6 @@ function ProfileHeader() {
       <a href={CONTACT_LINKS.email} aria-label="E-mail"><FaEnvelope aria-hidden="true" /></a>
     </div>
   </header>;
-}
-
-/** Título reutilizável para manter as seções simples e padronizadas. */
-function SectionTitle({ id, title }: { id: string; title: string }) {
-  return <div className="section-title"><h2 id={id}>{title}</h2></div>;
 }
 
 /** Cartão acessível para links internos ou externos. */
@@ -75,8 +68,8 @@ function LinkCard({ title, description, href, icon: Icon, external, status, disa
 export default function Home() {
   return <main id="inicio">
     <ProfileHeader />
-    <section className="link-section" aria-labelledby="areas-title"><SectionTitle id="areas-title" title="Escolha uma área" /><div className="card-list">{FEATURED_LINKS.map((link) => <LinkCard key={link.title} {...link} />)}</div></section>
-    <section className="link-section" id="contato" aria-labelledby="contact-title"><SectionTitle id="contact-title" title="Vamos conversar" /><div className="card-list">{CONTACTS.map((link) => <LinkCard key={link.title} {...link} />)}</div></section>
+    <section className="link-section" aria-label="Áreas principais"><div className="card-list">{FEATURED_LINKS.map((link) => <LinkCard key={link.title} {...link} />)}</div></section>
+    <section className="link-section" id="contato" aria-labelledby="contact-title"><div className="section-title"><h2 id="contact-title">Vamos conversar</h2></div><div className="card-list">{CONTACTS.map((link) => <LinkCard key={link.title} {...link} />)}</div></section>
     <footer><p>© {new Date().getFullYear()} Nelson Souza</p><span>Feito com React e TypeScript.</span></footer>
   </main>;
 }
