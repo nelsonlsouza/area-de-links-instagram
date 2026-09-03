@@ -1,98 +1,80 @@
-# vinext-starter
+# Área de Links — Nelson Souza
 
-A clean full-stack starter running on
-[vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
-Drizzle support.
+Página pessoal de links criada para apresentar, em um único endereço, meu trabalho como desenvolvedor, meus projetos, canais de contato e materiais gratuitos.
 
-## Prerequisites
+## Objetivo
 
-- Node.js `>=22.13.0`
+O site funciona como uma página profissional de “link na bio” para dois públicos:
 
-## Quick Start
+- recrutadores e empresas, com acesso aos projetos voltados à carreira;
+- clientes, parceiros e visitantes, com acesso ao portfólio, contatos e projetos independentes.
+
+O conteúdo está organizado em cinco áreas: projetos para carreira, portfólio de desenvolvimento, contatos, projetos profissionais/acadêmicos e conteúdos gratuitos.
+
+## Tecnologias
+
+- HTML semântico, escrito nos componentes React;
+- CSS puro para layout, responsividade e animações;
+- TypeScript para tipagem e organização dos dados;
+- React para criação dos componentes;
+- Next.js apenas como estrutura de execução, rotas e otimização de imagens.
+
+Não há banco de dados, autenticação ou estado no navegador. A página é estática, leve e simples de manter.
+
+## Estrutura principal
+
+```text
+app/
+├── globals.css          # Cores, componentes visuais e responsividade
+├── layout.tsx           # Idioma, fonte e metadados do site
+├── page.tsx             # Página inicial e links principais
+└── portfolio/
+    └── page.tsx         # Projetos profissionais e acadêmicos
+public/
+└── logo-nelson.png      # Logo usada no perfil
+tests/
+└── rendered-html.test.mjs
+```
+
+## Como executar
+
+É necessário ter o Node.js 22.13 ou superior instalado.
 
 ```bash
 npm install
 npm run dev
+```
+
+Abra `http://localhost:3000` no navegador.
+
+Para publicação, defina `NEXT_PUBLIC_SITE_URL` com o endereço final do site. Essa variável garante que a imagem de compartilhamento use uma URL absoluta correta.
+
+## Validação
+
+```bash
 npm run build
+npm test
 ```
 
-This starter does not use `wrangler.jsonc`.
+O primeiro comando cria a versão de produção. O segundo também confere se os textos e links essenciais estão presentes.
 
-## Included Shape
+## Como editar os links
 
-- edit site code under `app/`
-- `.openai/hosting.json` declares optional Sites D1 and R2 bindings
-- `vite.config.ts` simulates declared bindings for local development
-- `db/schema.ts` starts intentionally empty
-- `examples/d1/` contains an optional D1 example surface
-- `drizzle.config.ts` supports local migration generation when needed
+Abra `app/page.tsx`. No começo do arquivo estão três constantes fáceis de localizar:
 
-## Workspace Auth Headers
+- `CONTACT_LINKS`: endereços oficiais, incluindo o e-mail `nelsonsouza0328@gmail.com`;
+- `FEATURED_LINKS`: áreas e projetos em destaque;
+- `CONTACTS`: cartões da seção de contato.
 
-OpenAI workspace sites can read the current user's email from
-`oai-authenticated-user-email`.
+Cada cartão segue o tipo `LinkItem`. Para incluir outro, copie um objeto existente e altere título, descrição, endereço e ícone.
 
-SIWC-authenticated workspace sites may also receive
-`oai-authenticated-user-full-name` when the user's SIWC profile has a non-empty
-`name` claim. The full-name value is percent-encoded UTF-8 and is accompanied by
-`oai-authenticated-user-full-name-encoding: percent-encoded-utf-8`.
+## Como personalizar o visual
 
-Treat the full name as optional and fall back to email when it is absent:
+As cores ficam nas variáveis do início de `app/globals.css`. Alterar uma variável atualiza a identidade visual de toda a página. Os blocos do CSS estão comentados por responsabilidade e os componentes têm nomes descritivos.
 
-```tsx
-import { headers } from "next/headers";
+## Próximos conteúdos
 
-export default async function Home() {
-  const requestHeaders = await headers();
-  const email = requestHeaders.get("oai-authenticated-user-email");
-  const encodedFullName = requestHeaders.get("oai-authenticated-user-full-name");
-  const fullName =
-    encodedFullName &&
-    requestHeaders.get("oai-authenticated-user-full-name-encoding") ===
-      "percent-encoded-utf-8"
-      ? decodeURIComponent(encodedFullName)
-      : null;
-
-  const displayName = fullName ?? email;
-  // ...
-}
-```
-
-## Optional Dispatch-Owned ChatGPT Sign-In
-
-Import the ready-to-use helpers from `app/chatgpt-auth.ts` when the site needs
-optional or required ChatGPT sign-in:
-
-- Use `getChatGPTUser()` for optional signed-in UI.
-- Use `requireChatGPTUser(returnTo)` for server-rendered pages that should send
-  anonymous visitors through Sign in with ChatGPT.
-- Use `chatGPTSignInPath(returnTo)` and `chatGPTSignOutPath(returnTo)` for
-  browser links or actions.
-- Pass a same-origin relative `returnTo` path for the destination after sign-in
-  or sign-out. The helper validates and safely encodes it.
-- Mark protected pages with `export const dynamic = "force-dynamic"` because
-  they depend on per-request identity headers.
-
-Dispatch owns `/signin-with-chatgpt`, `/signout-with-chatgpt`, `/callback`, the
-OAuth cookies, and identity header injection. Do not implement app routes for
-those reserved paths. Routes that do not import and call the helper remain
-anonymous-compatible.
-
-SIWC establishes identity only; it does not prove workspace membership. Use the
-Sites hosting platform's access policy controls for workspace-wide restrictions,
-or enforce explicit server-side membership or allowlist checks.
-
-Use SIWC for account pages, user-specific dashboards, saved records, and write
-actions tied to the current ChatGPT user. Leave public content anonymous.
-
-## Useful Commands
-
-- `npm run dev`: start local development
-- `npm run build`: verify the vinext build output
-- `npm test`: build the starter and verify its rendered loading skeleton
-- `npm run db:generate`: generate Drizzle migrations after schema changes
-
-## Learn More
-
-- [vinext Documentation](https://github.com/cloudflare/vinext)
-- [Drizzle D1 Guide](https://orm.drizzle.team/docs/get-started/d1-new)
+- substituir os cartões “Em preparação” por projetos reais;
+- incluir contexto, tecnologias e resultados em cada estudo de caso;
+- cadastrar dicas, cursos, livros e materiais gratuitos;
+- revisar os links sempre que um perfil mudar.

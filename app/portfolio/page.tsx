@@ -1,7 +1,14 @@
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Construction } from "lucide-react";
+import { FaArrowLeft, FaBriefcase, FaGraduationCap } from "react-icons/fa6";
 
+/** Página reservada aos futuros projetos independentes e acadêmicos. */
 export default function PortfolioPage() {
-  return <main className="construction-page"><Image className="construction-logo" src="/logo-nelson.png" width={1254} height={1254} alt="Logo Nelson Souza Dev" priority /><div className="construction-icon"><Construction aria-hidden="true" /></div><p className="eyebrow">PORTFÓLIO</p><h1 className="construction-title">Em construção</h1><div className="divider" aria-hidden="true"><span /><i /><span /></div><p className="construction-copy">Estou preparando uma seleção dos meus melhores projetos. Em breve, novas ideias vão ganhar forma por aqui.</p><Link className="back-link" href="/"><ArrowLeft aria-hidden="true" />Voltar aos links</Link></main>;
+  return <main className="portfolio-page">
+    <Link className="back-link" href="/"><FaArrowLeft aria-hidden="true" /> Voltar para o início</Link>
+    <header className="portfolio-header"><p className="eyebrow">PORTFÓLIO COMPLEMENTAR</p><h1>Projetos profissionais e acadêmicos</h1></header>
+    <section className="project-placeholder" aria-label="Categorias de projetos">
+      <article><FaBriefcase aria-hidden="true" /><h2>Projetos de gestão</h2><p>Soluções e processos desenvolvidos em experiências profissionais independentes.</p><span>Em preparação</span></article>
+      <article><FaGraduationCap aria-hidden="true" /><h2>Projetos acadêmicos</h2><p>Pesquisas, estudos de caso e entregas construídas durante a formação.</p><span>Em preparação</span></article>
+    </section>
+  </main>;
 }

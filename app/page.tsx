@@ -1,26 +1,82 @@
 import Image from "next/image";
-import { ArrowRight, BriefcaseBusiness } from "lucide-react";
-import { FaGithub, FaInstagram, FaLinkedinIn, FaWhatsapp } from "react-icons/fa6";
+import type { IconType } from "react-icons";
+import { FaBookOpen, FaBriefcase, FaCode, FaEnvelope, FaGithub, FaGraduationCap, FaInstagram, FaLinkedinIn, FaWhatsapp } from "react-icons/fa6";
 
-const SOCIAL_LINKS = { portfolio: "https://nelson-souza-portfolio.vercel.app", whatsapp: "https://wa.me/5592984588149", instagram: "https://instagram.com/nelsonn.dev", github: "https://github.com/nelsonlsouza", linkedin: "https://linkedin.com/in/nelsonlsouza/" } as const;
+/** Formato compartilhado por todos os cartões. Copie-o para adicionar um link. */
+type LinkItem = { title: string; description: string; href: string; icon: IconType; external?: boolean; status?: string; disabled?: boolean };
 
-const links = [
-  { title: "Portfólio", icon: BriefcaseBusiness, href: SOCIAL_LINKS.portfolio, external: true },
-  { title: "WhatsApp", icon: FaWhatsapp, href: SOCIAL_LINKS.whatsapp, external: true },
-  { title: "GitHub", icon: FaGithub, href: SOCIAL_LINKS.github, external: true },
-  { title: "LinkedIn", icon: FaLinkedinIn, href: SOCIAL_LINKS.linkedin, external: true },
+/** Endereços oficiais reunidos em um só lugar para facilitar a manutenção. */
+const CONTACT_LINKS = {
+  email: "mailto:nelsonsouza0328@gmail.com",
+  github: "https://github.com/nelsonlsouza",
+  instagram: "https://instagram.com/nelsonn.dev",
+  linkedin: "https://linkedin.com/in/nelsonlsouza/",
+  portfolio: "https://nelson-souza-portfolio.vercel.app",
+  whatsapp: "https://wa.me/5592984588149",
+} as const;
+
+/** Conteúdo principal, dividido entre carreira e projetos independentes. */
+const FEATURED_LINKS: LinkItem[] = [
+  { title: "Projetos para carreira", description: "Cases corporativos para vagas, estágios e oportunidades em tecnologia.", href: CONTACT_LINKS.github, icon: FaBriefcase, status: "Em breve", disabled: true },
+  { title: "Portfólio de desenvolvimento", description: "Quem sou, minha stack e os projetos que representam meu trabalho.", href: CONTACT_LINKS.portfolio, icon: FaCode, external: true },
+  { title: "Projetos profissionais e acadêmicos", description: "Soluções de gestão, estudos e trabalhos desenvolvidos por fora.", href: "/portfolio", icon: FaGraduationCap },
+  { title: "Conteúdos gratuitos", description: "Dicas, cursos, livros e materiais livres para continuar aprendendo.", href: "#conteudos", icon: FaBookOpen, status: "Em breve" },
 ];
 
-function BrandMark() { return <Image className="brand-mark" src="/logo-nelson.png" width={1254} height={1254} alt="Logo Nelson Souza Dev" priority />; }
+/** Canais disponíveis para recrutadores, clientes e parceiros. */
+const CONTACTS: LinkItem[] = [
+  { title: "LinkedIn", description: "Carreira, experiências e conexões profissionais.", href: CONTACT_LINKS.linkedin, icon: FaLinkedinIn, external: true },
+  { title: "WhatsApp", description: "Converse comigo diretamente.", href: CONTACT_LINKS.whatsapp, icon: FaWhatsapp, external: true },
+  { title: "E-mail", description: "Envie propostas, convites e oportunidades.", href: CONTACT_LINKS.email, icon: FaEnvelope },
+];
 
-function Header() {
-  return <header className="header"><BrandMark /><h1>NELSON SOUZA</h1><p className="dev">DEV</p><div className="divider" aria-hidden="true"><span /><i /><span /></div><p className="tagline">Desenvolvendo soluções inteligentes<br />para transformar ideias em realidade.</p></header>;
+/** Cabeçalho de apresentação e navegação rápida. */
+function ProfileHeader() {
+  return <header className="profile-header">
+    <nav className="top-navigation" aria-label="Navegação da página">
+      <a className="brand-link" href="#inicio" aria-label="Voltar ao início"><Image className="brand-logo" src="/logo-nelson.png" width={1254} height={1254} alt="Símbolo da marca Nelson Souza Dev" priority /></a>
+      <a className="contact-shortcut" href="#contato">Contato</a>
+    </nav>
+    <div className="profile-picture" aria-hidden="true"><Image src="/logo-nelson.png" width={1254} height={1254} alt="" priority /></div>
+    <p className="eyebrow">DESENVOLVEDOR DE SOFTWARE</p>
+    <h1>Nelson Souza</h1>
+    <p className="username">@nelsonn.dev</p>
+    <p className="intro">Transformo ideias em soluções digitais simples, úteis e bem construídas.</p>
+    <div className="social-list" aria-label="Redes sociais">
+      <a href={CONTACT_LINKS.instagram} target="_blank" rel="noreferrer" aria-label="Instagram"><FaInstagram aria-hidden="true" /></a>
+      <a href={CONTACT_LINKS.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn"><FaLinkedinIn aria-hidden="true" /></a>
+      <a href={CONTACT_LINKS.github} target="_blank" rel="noreferrer" aria-label="GitHub"><FaGithub aria-hidden="true" /></a>
+      <a href={CONTACT_LINKS.email} aria-label="E-mail"><FaEnvelope aria-hidden="true" /></a>
+    </div>
+  </header>;
 }
 
-function LinkCard({ title, href, icon: Icon, external }: (typeof links)[number]) {
-  return <a className="link-card" href={href} target={external ? "_blank" : undefined} rel={external ? "noreferrer" : undefined}><span className="icon-wrap"><Icon aria-hidden="true" /></span><span className="card-title">{title}</span><ArrowRight className="arrow" aria-hidden="true" /></a>;
+/** Título reutilizável para manter as seções simples e padronizadas. */
+function SectionTitle({ id, title }: { id: string; title: string }) {
+  return <div className="section-title"><h2 id={id}>{title}</h2></div>;
 }
 
-function SocialFooter() { return <footer><div className="connect"><span />CONECTE-SE COMIGO<span /></div><a className="instagram" href={SOCIAL_LINKS.instagram} target="_blank" rel="noreferrer" aria-label="Instagram @nelsonn.dev"><FaInstagram aria-hidden="true" /></a><p>@nelsonn.dev</p></footer>; }
+/** Cartão acessível para links internos ou externos. */
+function LinkCard({ title, description, href, icon: Icon, external, status, disabled }: LinkItem) {
+  const content = <>
+    <span className="card-icon"><Icon aria-hidden="true" /></span>
+    <span className="card-copy"><strong>{title}</strong><small>{description}</small></span>
+    <span className={status ? "card-status" : "card-arrow"} aria-hidden="true">{status ?? "↗"}</span>
+  </>;
 
-export default function Home() { return <main><Header /><nav aria-label="Links principais">{links.map((link) => <LinkCard key={link.title} {...link} />)}</nav><SocialFooter /></main>; }
+  if (disabled) {
+    return <div className="link-card is-disabled" aria-disabled="true">{content}</div>;
+  }
+
+  return <a className="link-card" href={href} target={external ? "_blank" : undefined} rel={external ? "noreferrer" : undefined}>{content}</a>;
+}
+
+/** Página estática: não envia JavaScript interativo desnecessário ao navegador. */
+export default function Home() {
+  return <main id="inicio">
+    <ProfileHeader />
+    <section className="link-section" aria-labelledby="areas-title"><SectionTitle id="areas-title" title="Escolha uma área" /><div className="card-list">{FEATURED_LINKS.map((link) => <LinkCard key={link.title} {...link} />)}</div></section>
+    <section className="link-section" id="contato" aria-labelledby="contact-title"><SectionTitle id="contact-title" title="Vamos conversar" /><div className="card-list">{CONTACTS.map((link) => <LinkCard key={link.title} {...link} />)}</div></section>
+    <footer><p>© {new Date().getFullYear()} Nelson Souza</p><span>Feito com React e TypeScript.</span></footer>
+  </main>;
+}
